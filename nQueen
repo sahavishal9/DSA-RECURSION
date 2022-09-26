@@ -10,7 +10,7 @@ def nQueen(n,A,k):
         if canPlace(k,i,A):
             A[k]=i 
             if k==n:
-                print(A)
+                print(A[1:])
             else:
                 nQueen(n,A,k+1)
 n=4
