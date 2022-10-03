@@ -1,0 +1,27 @@
+def solve(N,Primes,S,l,n,cur_sum):
+    global t
+    if cur_sum==S and n==N:
+        return 1 
+    if t>len(Primes):
+        return -1
+    for i in range(l,len(Primes)):
+        if l<=len(Primes) and n+1<=N and cur_sum+Primes[i]<=S:
+            return solve(N,Primes,S,i+1,n+1,cur_sum+Primes[i])
+        else:
+            cur_sum-=Primes[l-1]
+            n-=1
+            return solve(N,Primes,S,l,n,cur_sum)
+    else:
+        t+=1
+        return solve(N,Primes,S,t,0,0)
+        
+
+
+t=0
+N=2
+Primes=[11,13,17,19,23]
+S=40
+l=0
+n=0
+cur_sum=0
+print(solve(N,Primes,S,l,n,cur_sum))            
