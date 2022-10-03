@@ -1,27 +1,29 @@
-def solve(N,Primes,S,l,n,cur_sum):
-    global t
-    if cur_sum==S and n==N:
-        return 1 
+def solve(N,Primes,S,l,n):
+    global t,sets
+    if sum(sets)==S and n==N:
+        return sets
     if t>len(Primes):
         return -1
     for i in range(l,len(Primes)):
-        if l<=len(Primes) and n+1<=N and cur_sum+Primes[i]<=S:
-            return solve(N,Primes,S,i+1,n+1,cur_sum+Primes[i])
+        if l<=len(Primes) and n+1<=N and sum(sets)+Primes[i]<=S:
+            sets.add(Primes[i])
+            return solve(N,Primes,S,i+1,n+1)
         else:
-            cur_sum-=Primes[l-1]
+            sets.remove(Primes[l-1])
             n-=1
-            return solve(N,Primes,S,l,n,cur_sum)
+            return solve(N,Primes,S,l,n)
     else:
         t+=1
-        return solve(N,Primes,S,t,0,0)
+        sets.clear()
+        return solve(N,Primes,S,t,0)
         
 
-
+sets=set()
 t=0
-N=2
-Primes=[11,13,17,19,23]
-S=40
+N=4
+Primes=[11,13,17,19,23,29,31]
+S=90
 l=0
 n=0
 cur_sum=0
-print(solve(N,Primes,S,l,n,cur_sum))            
+print(solve(N,Primes,S,l,n))            
