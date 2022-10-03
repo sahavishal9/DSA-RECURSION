@@ -1,0 +1,41 @@
+def solve(A,r,c,ans):
+    if r==len(A)-1 and c==len(A[0])-1:
+        print(*ans)
+    if c+1<len(A[0]):
+        ans.append(A[r][c+1])
+        solve(A,r,c+1,ans)
+        ans.pop()
+    
+    if r+1<len(A):
+        ans.append(A[r+1][c])
+        solve(A,r+1,c,ans)
+        ans.pop()
+
+       
+A=[[1,2,3],[4,5,6]]
+r=0
+c=0
+ans=[1]
+print("OUTPUT 1")
+solve(A,r,c,ans)
+
+
+A=[[1,2,3],[4,5,6],[7,8,9]]
+r=0
+c=0
+ans=[1]
+print("OUTPUT 2")
+solve(A,r,c,ans)
+
+
+OUTPUT 1
+1 2 3 6
+1 2 5 6
+1 4 5 6
+OUTPUT 2
+1 2 3 6 9
+1 2 5 6 9
+1 2 5 8 9
+1 4 5 6 9
+1 4 5 8 9
+1 4 7 8 9
