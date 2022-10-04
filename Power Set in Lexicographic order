@@ -1,0 +1,15 @@
+def solve(A,sets,ind):
+    for i in range(ind,len(A)):
+        sets.append(A[i])
+        print("".join(sets),end=" ")
+        solve(A,sets,i+1)
+        sets.pop()
+s="abc"
+A=list(s)
+sets=[]
+ind=0
+solve(A,sets,ind)
+
+#Output
+a ab abc ac b bc c 
+        
