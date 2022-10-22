@@ -1,0 +1,38 @@
+def Tug(A,n,k):
+    global minm,first_subset,summ,index,ans1,ans2
+    if k==n//2:
+        s1=sum(first_subset)
+        s2=summ-s1
+        diff=abs(s2-s1)
+        if diff<minm:
+            minm=diff
+            ans1=first_subset[:]
+            ans2.clear()
+            for ind in index:
+                ans2.append(A[ind])
+    
+    elif k<n//2:       
+        for i in range(len(index)):
+            t=index[i]
+            x=A[t]
+            index.pop(i)
+            first_subset.append(x)
+            Tug(A,n,k+1)
+            index.insert(i,t)
+            first_subset.pop()
+    
+      
+    
+A= [23, 45, -34, 12, 0, 98,-99, 4, 189, -1, 4]
+n = len(A)
+index=[i for i in range(n)]
+first_subset=[]
+minm=float('inf')
+summ=sum(A)
+ans1=[]
+ans2=[]
+Tug(A,n,0)
+print(ans1,ans2)
+
+        
+        
