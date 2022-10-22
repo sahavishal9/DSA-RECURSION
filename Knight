@@ -1,0 +1,96 @@
+def check(r,c,n):
+    if r<0 or r>=n: 
+        return 0 
+    if c<0 or c>=n:
+        return 0 
+    if A[r][c]>0:
+        return 0 
+    return 1
+    
+
+def knight(r,c,n):
+    global count
+    if count==n*n:
+        for i in range(n):
+            print(*A[i])
+        print("################")
+    if check(r-2,c+1,n):
+        count+=1
+        A[r-2][c+1]=count
+        
+        knight(r-2,c+1,n)
+        A[r-2][c+1]=0 
+        count-=1
+    
+    if check(r-1,c+2,n):
+        count+=1
+        A[r-1][c+2]=count
+        
+        knight(r-1,c+2,n)
+        A[r-1][c+2]=0 
+        count-=1
+        
+    if check(r+1,c+2,n):
+        count+=1
+        A[r+1][c+2]=count
+        
+        knight(r+1,c+2,n)
+        A[r+1][c+2]=0 
+        count-=1
+        
+        
+    if check(r+2,c+1,n):
+        count+=1
+        A[r+2][c+1]=count
+        
+        knight(r+2,c+1,n)
+        A[r+2][c+1]=0 
+        count-=1 
+        if r+2==2 and c==1:
+            for i in range(n):
+                print(*A[i])
+            print("****************")
+            
+    
+    if check(r+2,c-1,n):
+        count+=1
+        A[r+2][c-1]=count
+        
+        knight(r+2,c-1,n)
+        A[r+2][c-1]=0 
+        count-=1 
+        
+    if check(r+1,c-2,n):
+        count+=1
+        A[r+1][c-2]=count
+        
+        knight(r+1,c-2,n)
+        A[r+1][c-2]=0 
+        count-=1
+    
+    if check(r-1,c-2,n):
+        count+=1
+        A[r-1][c-2]=count
+        
+        knight(r-1,c-2,n)
+        A[r-1][c-2]=0 
+        count-=1
+    if check(r-2,c-1,n):
+        count+=1
+        A[r-2][c-1]=count
+        
+        knight(r-2,c-1,n)
+        A[r-2][c-1]=0 
+        count-=1
+        
+count=1
+r,c=0,0 
+n=8
+A=[]
+for i in range(n):
+    A.append([0]*n)
+A[0][0]=1
+knight(r,c,n)
+    
+    
+    
