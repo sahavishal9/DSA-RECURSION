@@ -1,0 +1,61 @@
+#User function Template for python3
+
+class Solution:
+    
+    #Function to find the largest number after k swaps.
+    def findMaximumNum(self,s,k):
+        #code here
+        s=list(s)
+        self.ans='0'
+        def swap(s,k,left,t):
+            if t==k or left >=len(s):
+                tmp=''.join(s)
+                if tmp>self.ans:
+                    self.ans=tmp
+            if left<len(s) and t<k:
+                cur_max=s[left]
+                ind=left
+                flag=0
+                for i in range(left+1,len(s)):
+                    if s[i]>cur_max:
+                        cur_max=s[i]
+                        ind=i
+                        flag=1 
+                
+                if flag==1 :
+                    for j in range(left+1,len(s)):
+                        if s[j]==cur_max:
+                            s[left],s[j]=s[j],s[left]
+                            left+=1 
+                            t+=1
+                            swap(s,k,left,t)
+                            left-=1 
+                            t-=1
+                            s[left],s[j]=s[j],s[left]
+                else:
+                    swap(s,k,left+1,t)
+                    
+                            
+                
+            
+        left=0 
+        t=0
+        swap(s,k,left,t)
+        return self.ans
+        
+                
+
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+if __name__=="__main__":
+    for _ in range(int(input())):
+        k = int(input())
+        s = input()
+        ob=Solution()
+        print(ob.findMaximumNum(s,k))
+
+# } Driver Code Ends
