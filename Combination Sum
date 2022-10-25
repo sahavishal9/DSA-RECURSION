@@ -1,0 +1,88 @@
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+import atexit
+import io
+import sys
+
+
+# } Driver Code Ends
+#User function Template for python3
+
+class Solution:
+    
+    #Function to return a list of indexes denoting the required 
+    #combinations whose sum is equal to given number.
+    def combinationalSum(self,A, B):
+        A=list(set(A))
+        A.sort()
+        self.ans=[]
+        def solve(A,B,prev,summ,val):
+           
+            for ele in A:
+                if len(val)>0:
+                    prev=val[-1]
+                else:
+                    prev=ele
+                    
+                if ele>=prev:
+                    summ+=ele
+                    if summ<B :
+                        val.append(ele)
+                        solve(A,B,prev,summ,val)
+                        val.pop()
+                        summ-=ele
+                        
+                    if summ==B :
+                        #print(summ,prev,ele)
+                        prev=ele
+                        val.append(ele)
+                        self.ans.append(val.copy())
+                        #print(self.ans)
+                        solve(A,B,prev,summ,val)
+                        val.pop()
+                        summ-=ele
+                        
+                    if summ>B :
+                        # print(summ,prev,ele)
+                        summ-=ele 
+                        #solve(A,B,prev,summ,val)
+        solve(A,B,0,0,[])
+        
+        return self.ans
+                    
+                    
+                
+                
+                
+                
+            
+
+#{ 
+ # Driver Code Starts.
+
+
+if __name__ == '__main__':
+    test_cases = int(input())
+    for cases in range(test_cases):
+        n = int(input())
+        a = list(map(int,input().strip().split()))
+        s = int(input())
+        ob = Solution()
+        result = ob.combinationalSum(a,s)
+        if(not len(result)):
+            print("Empty")
+            continue
+        for i in range(len(result)):
+            print("(", end="")
+            size = len(result[i])
+            for j in range(size - 1):
+                print(result[i][j], end=" ")
+            if (size):
+                print(result[i][size - 1], end=")")
+            else:
+                print(")", end="")
+        print()
+
+# } Driver Code Ends
