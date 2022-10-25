@@ -18,37 +18,35 @@ class Solution:
         A=list(set(A))
         A.sort()
         self.ans=[]
-        def solve(A,B,prev,summ,val):
+        def solve(A,B,cur_sum,comb):
            
             for ele in A:
-                if len(val)>0:
-                    prev=val[-1]
+                if len(comb)>0:
+                    prev=comb[-1]
                 else:
                     prev=ele
                     
                 if ele>=prev:
-                    summ+=ele
-                    if summ<B :
-                        val.append(ele)
-                        solve(A,B,prev,summ,val)
-                        val.pop()
-                        summ-=ele
+                    cur_sum+=ele
+                    if cur_sum<B :
+                        comb.append(ele)
+                        solve(A,B,cur_sum,comb)
+                        comb.pop()
+                        cur_sum-=ele
                         
-                    if summ==B :
-                        #print(summ,prev,ele)
+                    if cur_sum==B :
                         prev=ele
-                        val.append(ele)
-                        self.ans.append(val.copy())
-                        #print(self.ans)
-                        solve(A,B,prev,summ,val)
-                        val.pop()
-                        summ-=ele
+                        comb.append(ele)
+                        self.ans.append(comb.copy())
+                        solve(A,B,cur_sum,comb)
+                        comb.pop()
+                        cur_sum-=ele
                         
-                    if summ>B :
-                        # print(summ,prev,ele)
-                        summ-=ele 
-                        #solve(A,B,prev,summ,val)
-        solve(A,B,0,0,[])
+                    if cur_sum>B :
+                        cur_sum-=ele 
+        cur_sum=0 
+        comb=[]
+        solve(A,B,cur_sum,comb)
         
         return self.ans
                     
