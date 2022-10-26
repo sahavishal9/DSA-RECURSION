@@ -65,5 +65,79 @@ for i in range(len(M)):
 T[0][0]=1
 print(solve(0,0,R,C,M))
 
+
+
+
+
+## Solution -2
+
+def check(M,r,c):
+    if r<0 or r>=len(M):
+        return 0 
+    if c<0 or c>=len(M[0]):
+        return 0 
+    if visited[r][c]==1 or M[r][c]==0:
+        return 0 
+        
+    return 1
+
+
+def solve(M,r,c,x,y):
+    global cur_path_length,max_path_length
+    if r==x and c==y:
+        if cur_path_length> max_path_length:
+            max_path_length=cur_path_length
+        
+    
+    #right
+    if check(M,r,c+1):
+        cur_path_length+=1
+        visited[r][c+1]=1
+        solve(M,r,c+1,x,y)
+        cur_path_length-=1
+        visited[r][c+1]=0
+        
+    #down
+    if check(M,r+1,c):
+        cur_path_length+=1
+        visited[r+1][c]=1
+        solve(M,r+1,c,x,y)
+        cur_path_length-=1
+        visited[r+1][c]=0
+        
+    #left
+    if check(M,r,c-1):
+        cur_path_length+=1
+        visited[r][c-1]=1
+        solve(M,r,c-1,x,y)
+        cur_path_length-=1
+        visited[r][c-1]=0
+        
+    #up
+    if check(M,r-1,c):
+        cur_path_length+=1
+        visited[r-1][c]=1
+        solve(M,r-1,c,x,y)
+        cur_path_length-=1
+        visited[r-1][c]=0
+        
+        
+M = [ [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+        [ 1, 1, 0, 1, 1, 0, 1, 1, 0, 1 ],
+        [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ]
+visited=[] 
+for i in range(len(M)):
+    visited.append([0]*len(M[0]))
+cur_path_length=0 
+max_path_length=0
+r,c=0,0
+if M[r][c]==1:
+    visited[r][c]=1
+    solve(M, r, c, 1, 7)
+    print(max_path_length)
+else:
+    print("No Path")
+        
+
         
     
